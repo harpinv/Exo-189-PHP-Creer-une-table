@@ -61,6 +61,11 @@
 
 // TODO Votre code ici.
 
+$server = 'localhost';
+$user = 'root';
+$password = '';
+$db = 'bdd_cours';
+
 try {
     $maConnexion = new PDO("mysql:host=$server;dbname=$db;charset=utf8", $user, $password);
     $maConnexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
