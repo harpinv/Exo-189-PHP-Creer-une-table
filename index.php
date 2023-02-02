@@ -62,6 +62,35 @@
 // TODO Votre code ici.
 
 try {
-    ...
+    $maConnexion = new PDO("mysql:host=$server;dbname=$db;charset=utf8", $user, $password);
+    $maConnexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $table_test_php = "
+        CREATE TABLE utilisateur (
+            id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            nom VARCHAR(50) NOT NULL,
+            prenom VARCHAR(50) NOT NULL,
+            mail VARCHAR(100) NOT NULL,
+            password VARCHAR(100) NOT NULL,
+            adresse VARCHAR(255) NOT NULL,
+            code_postal SMALLINT UNSIGNED NOT NULL,
+            pays VARCHAR(50) NOT NULL,
+            date_enregistrement DATETIME DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE(mail)
+        )
+        
+        CREATE TABLE produit (
+            id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            titre VARCHAR(30) NOT NULL,
+            prix SMALLINT UNSIGNED NOT NULL,
+            description_courte TEXT NOT NULL,
+            description_longue TEXT NOT NULL
+        )
+    ";
+
+    $maConnexion->exec($table_test_php);
+    echo "La base de données intro_sql a bien été créée.";
 }
-catch...
+catch (PDOException $exception) {
+    echo "Erreur de connexion: " . $exception->getMessage();
+}
